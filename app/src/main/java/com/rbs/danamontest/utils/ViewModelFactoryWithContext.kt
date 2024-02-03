@@ -1,8 +1,12 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.utils
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.rbs.danamontest.ui.home.HomeViewModel
+import com.rbs.danamontest.ui.main.MainViewModel
+import com.rbs.danamontest.ui.register.RegisterViewModel
+import com.rbs.danamontest.di.Injection
 
 class ViewModelFactoryWithContext(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

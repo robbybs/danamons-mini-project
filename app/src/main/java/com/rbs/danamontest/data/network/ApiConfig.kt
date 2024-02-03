@@ -1,4 +1,4 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

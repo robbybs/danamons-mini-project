@@ -1,7 +1,9 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.utils
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.rbs.danamontest.data.model.PhotoItem
+import com.rbs.danamontest.data.network.ApiService
 
 class PhotoPagingSource(private val apiService: ApiService) :
     PagingSource<Int, PhotoItem>() {
@@ -18,8 +20,6 @@ class PhotoPagingSource(private val apiService: ApiService) :
             val responseData = apiService.getData(position, params.loadSize)
             LoadResult.Page(
                 data = responseData,
-//                prevKey = null,
-//                nextKey = position + 1
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
                 nextKey = if (responseData.isEmpty()) null else position + 1
             )

@@ -1,4 +1,4 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.rbs.danamontest.data.model.PhotoItem
 import com.rbs.danamontest.databinding.ItemHomeBinding
 
 class HomeAdapter : PagingDataAdapter<PhotoItem, HomeAdapter.MyViewHolder>(DIFF_CALLBACK) {

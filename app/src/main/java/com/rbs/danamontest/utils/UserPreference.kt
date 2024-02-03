@@ -1,4 +1,4 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.utils
 
 import android.content.Context
 import androidx.datastore.core.DataStore

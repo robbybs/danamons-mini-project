@@ -1,7 +1,11 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import com.rbs.danamontest.data.model.User
+import com.rbs.danamontest.data.database.UserDao
+import com.rbs.danamontest.data.database.UserRoomDatabase
+import com.rbs.danamontest.utils.UserPreference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

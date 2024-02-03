@@ -1,9 +1,10 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.rbs.danamontest.data.model.User
 
 @Database(entities = [User::class], version = 3, exportSchema = false)
 abstract class UserRoomDatabase : RoomDatabase() {

@@ -1,4 +1,4 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.data.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

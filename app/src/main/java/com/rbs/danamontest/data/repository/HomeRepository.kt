@@ -1,10 +1,17 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.rbs.danamontest.data.network.ApiService
+import com.rbs.danamontest.data.model.User
+import com.rbs.danamontest.data.database.UserDao
+import com.rbs.danamontest.data.database.UserRoomDatabase
+import com.rbs.danamontest.data.model.PhotoItem
+import com.rbs.danamontest.utils.PhotoPagingSource
+import com.rbs.danamontest.utils.UserPreference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

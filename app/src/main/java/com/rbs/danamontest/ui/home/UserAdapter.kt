@@ -1,18 +1,14 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.rbs.danamontest.data.model.User
 import com.rbs.danamontest.databinding.ItemUserBinding
 
 class UserAdapter : ListAdapter<User, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
-    private var onItemClickCallback: OnItemClickCallback? = null
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
@@ -35,15 +31,8 @@ class UserAdapter : ListAdapter<User, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
                 tvEmail.text = data.email
                 tvRole.text = data.role
                 tvIds.text = data.id.toString()
-
-                val sourcesId = data.id.toString()
-                //cvSource.setOnClickListener { onItemClickCallback?.onItemClicked(sourcesId) }
             }
         }
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: String)
     }
 
     companion object {

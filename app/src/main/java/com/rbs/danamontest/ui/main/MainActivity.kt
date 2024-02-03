@@ -1,4 +1,4 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.rbs.danamontest.databinding.ActivityMainBinding
+import com.rbs.danamontest.ui.home.HomeActivity
+import com.rbs.danamontest.ui.register.RegisterActivity
+import com.rbs.danamontest.utils.ViewModelFactoryWithContext
 import io.reactivex.Observable
 
 @SuppressLint("CheckResult")

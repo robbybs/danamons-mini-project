@@ -1,10 +1,13 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.rbs.danamontest.data.model.User
+import com.rbs.danamontest.data.model.PhotoItem
+import com.rbs.danamontest.data.repository.HomeRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: HomeRepository) : ViewModel() {

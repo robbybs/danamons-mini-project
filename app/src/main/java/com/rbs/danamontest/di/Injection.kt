@@ -1,6 +1,12 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.di
 
 import android.content.Context
+import com.rbs.danamontest.data.repository.HomeRepository
+import com.rbs.danamontest.utils.UserPreference
+import com.rbs.danamontest.data.repository.UserRepository
+import com.rbs.danamontest.data.database.UserRoomDatabase
+import com.rbs.danamontest.data.network.ApiConfig
+import com.rbs.danamontest.utils.dataStore
 
 object Injection {
     fun homeRepository(context: Context): HomeRepository {

@@ -1,4 +1,4 @@
-package com.rbs.danamontest
+package com.rbs.danamontest.ui.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rbs.danamontest.databinding.ActivityHomeBinding
+import com.rbs.danamontest.ui.main.MainActivity
+import com.rbs.danamontest.utils.LoadingStateAdapter
+import com.rbs.danamontest.utils.ViewModelFactoryWithContext
 
 class HomeActivity : AppCompatActivity() {
 
