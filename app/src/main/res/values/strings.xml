@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">DanamonTest</string>
+    <string name="text_password">Password</string>
+    <string name="text_email">Email</string>
+    <string name="text_login">Login</string>
+    <string name="text_footer_login">Don\'t have an account?</string>
+    <string name="text_signup">Signup</string>
+    <string name="text_username">Username</string>
+    <string name="text_role">Select role</string>
+    <string name="text_admin">Admin</string>
+    <string name="text_user">Normal User</string>
+    <string name="text_footer_register">Already have an account?</string>
+    <string name="text_unknown">Unknown</string>
 </resources>

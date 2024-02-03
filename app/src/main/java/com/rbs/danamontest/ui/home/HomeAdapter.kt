@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.rbs.danamontest.R
 import com.rbs.danamontest.data.model.PhotoItem
 import com.rbs.danamontest.databinding.ItemHomeBinding
 
@@ -35,7 +36,7 @@ class HomeAdapter : PagingDataAdapter<PhotoItem, HomeAdapter.MyViewHolder>(DIFF_
                     .into(avatar)
 
                 if (data.title.isNullOrEmpty()) tvTitle.text =
-                    "Unknown" else tvTitle.text = data.title
+                    itemView.context.getString(R.string.text_unknown) else tvTitle.text = data.title
 
                 tvUrl.text = data.url
                 tvId.text = data.id.toString()

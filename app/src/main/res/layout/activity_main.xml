@@ -21,14 +21,14 @@
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="@string/text_email" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Password"
+            android:hint="@string/text_password"
             android:inputType="textPassword" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:enabled="false"
-            android:text="Login" />
+            android:text="@string/text_login" />
 
         <View
             android:layout_width="match_parent"
@@ -51,14 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"
-            android:text="Don't have an account?" />
+            android:text="@string/text_footer_login" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:text="Signup"
+            android:text="@string/text_signup"
             android:textColor="@color/white" />
     </LinearLayout>
 
