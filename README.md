@@ -7,3 +7,5 @@ This is Login Sample for Bank Danamon Indonesia Test
 - Circle View Image
 - RxJava
 - Endless Scroll with Paging3
+- Clean Architecture
+- Koin
