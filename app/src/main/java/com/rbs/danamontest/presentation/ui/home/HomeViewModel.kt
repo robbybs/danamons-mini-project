@@ -1,21 +1,21 @@
-package com.rbs.danamontest.ui.home
+package com.rbs.danamontest.presentation.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.rbs.danamontest.data.model.User
-import com.rbs.danamontest.data.model.PhotoItem
+import com.rbs.danamontest.data.remote.response.PhotoResponse
+import com.rbs.danamontest.data.local.entity.UserEntity
 import com.rbs.danamontest.data.repository.HomeRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
 
-    fun getData(): LiveData<PagingData<PhotoItem>> =
+    fun getData(): LiveData<PagingData<PhotoResponse>> =
         repository.getData().cachedIn(viewModelScope)
 
-    fun getAllData(): LiveData<List<User>> = repository.getAllDataFromDatabase()
+    fun getAllData(): LiveData<List<UserEntity>> = repository.getAllUser()
 
     fun deleteData(id: Int) {
         repository.delete(id)

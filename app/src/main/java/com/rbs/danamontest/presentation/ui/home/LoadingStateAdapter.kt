@@ -1,4 +1,4 @@
-package com.rbs.danamontest.utils
+package com.rbs.danamontest.presentation.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

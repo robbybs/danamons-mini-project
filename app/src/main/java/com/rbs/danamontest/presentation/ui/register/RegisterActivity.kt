@@ -1,29 +1,29 @@
-package com.rbs.danamontest.ui.register
+package com.rbs.danamontest.presentation.ui.register
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.rbs.danamontest.data.model.User
+import com.rbs.danamontest.utils.GlobalSingleton
+import com.rbs.danamontest.utils.GlobalSingletonListener
+import com.rbs.danamontest.data.local.entity.UserEntity
 import com.rbs.danamontest.databinding.ActivityRegisterBinding
-import com.rbs.danamontest.ui.main.MainActivity
-import com.rbs.danamontest.utils.ViewModelFactoryWithContext
+import com.rbs.danamontest.presentation.ui.main.MainActivity
 import io.reactivex.Observable
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CheckResult")
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var roleValue: String
-    private val viewmodel: RegisterViewModel by viewModels {
-        ViewModelFactoryWithContext(applicationContext)
-    }
+    private val viewmodel: RegisterViewModel by viewModel()
+    private val listener = Listener()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,40 +34,53 @@ class RegisterActivity : AppCompatActivity() {
         goToLogin()
     }
 
+    override fun onStart() {
+        super.onStart()
+        GlobalSingleton.register(listener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        GlobalSingleton.unregister(listener)
+    }
+
     private fun setDataStream() {
-        val usernameStream = RxTextView.textChanges(binding.inputUsername)
-            .skipInitialValue()
-            .map { username ->
-                username.length < 6
+        with(binding) {
+            val usernameStream = RxTextView.textChanges(inputUsername)
+                .skipInitialValue()
+                .map { username ->
+                    username.length < 6
+                }
+            usernameStream.subscribe {
+                showUsernameAlert(it)
             }
-        usernameStream.subscribe {
-            showUsernameAlert(it)
+
+            val emailStream = RxTextView.textChanges(inputEmail)
+                .skipInitialValue()
+                .map { email ->
+                    !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                }
+            emailStream.subscribe {
+                showEmailAlert(it)
+            }
+
+            val passwordStream = RxTextView.textChanges(inputPassword)
+                .skipInitialValue()
+                .map { password ->
+                    password.length < 6
+                }
+            passwordStream.subscribe {
+                showPassword(it)
+            }
+
+            val roleStream = RxRadioGroup.checkedChanges(groupRole)
+                .skipInitialValue()
+                .map { radio ->
+                    radio < 2
+                }
+
+            validateStream(usernameStream, emailStream, passwordStream, roleStream)
         }
-
-        val emailStream = RxTextView.textChanges(binding.inputEmail)
-            .skipInitialValue()
-            .map { email ->
-                !Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            }
-        emailStream.subscribe {
-            showEmailAlert(it)
-        }
-
-        val passwordStream = RxTextView.textChanges(binding.inputPassword)
-            .skipInitialValue()
-            .map { password ->
-                password.length < 6
-            }
-        passwordStream.subscribe {
-            showPassword(it)
-        }
-
-        val roleStream =
-            RxRadioGroup.checkedChanges(binding.groupRole).skipInitialValue().map { radio ->
-                radio < 2
-            }
-
-        validateStream(usernameStream, emailStream, passwordStream, roleStream)
     }
 
     private fun showUsernameAlert(isNotValid: Boolean) {
@@ -149,7 +162,12 @@ class RegisterActivity : AppCompatActivity() {
                 roleValue = if (admin.isChecked) roleAdmin else roleUser
 
                 val insertToDatabase =
-                    User(username = username, email = email, password = password, role = roleValue)
+                    UserEntity(
+                        username = username,
+                        email = email,
+                        password = password,
+                        role = roleValue
+                    )
                 viewmodel.insert(insertToDatabase)
 
                 Toast.makeText(this@RegisterActivity, "Register success", Toast.LENGTH_SHORT).show()
@@ -169,5 +187,9 @@ class RegisterActivity : AppCompatActivity() {
             )
             finish()
         }
+    }
+
+    private inner class Listener : GlobalSingletonListener {
+        override fun onEvent() {}
     }
 }

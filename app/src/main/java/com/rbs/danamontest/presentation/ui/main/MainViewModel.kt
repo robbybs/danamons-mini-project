@@ -1,15 +1,15 @@
-package com.rbs.danamontest.ui.main
+package com.rbs.danamontest.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rbs.danamontest.data.model.User
+import com.rbs.danamontest.data.local.entity.UserEntity
 import com.rbs.danamontest.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: UserRepository) : ViewModel() {
 
-    fun checkData(email: String): LiveData<User> = repository.checkDataByEmail(email)
+    fun checkData(email: String): LiveData<UserEntity> = repository.checkDataByEmail(email)
 
     fun saveSession(userLogin: Boolean) {
         viewModelScope.launch {

@@ -2,37 +2,35 @@ package com.rbs.danamontest.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
-import com.rbs.danamontest.data.model.User
-import com.rbs.danamontest.data.database.UserDao
-import com.rbs.danamontest.data.database.UserRoomDatabase
+import com.rbs.danamontest.domain.repository.IUserRepository
+import com.rbs.danamontest.data.local.LocalDataSource
+import com.rbs.danamontest.data.local.entity.UserEntity
 import com.rbs.danamontest.utils.UserPreference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class UserRepository(database: UserRoomDatabase, private val preference: UserPreference) {
+class UserRepository(
+    private val dataSource: LocalDataSource,
+    private val preference: UserPreference
+) : IUserRepository {
 
-    private val userDao: UserDao
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
-    init {
-        userDao = database.UserDao()
-    }
-
-    fun insertUsers(user: User) {
-        executorService.execute { userDao.insert(user) }
-    }
-
-    fun checkDataByEmail(email: String): LiveData<User> = userDao.checkUser(email)
-
-    suspend fun saveUserSession(isUserLogin: Boolean) {
+    override suspend fun saveUserSession(isUserLogin: Boolean) {
         preference.saveSession(isUserLogin)
     }
 
-    suspend fun saveRole(role: String) {
+    override suspend fun saveRole(role: String) {
         preference.saveRole(role)
     }
 
-    fun getUserSession(): LiveData<Boolean> = preference.getUserSession().asLiveData()
+    override fun getUserSession(): LiveData<Boolean> = preference.getUserSession().asLiveData()
 
-    fun getRole(): LiveData<String> = preference.getRoleSession().asLiveData()
+    override fun getRole(): LiveData<String> = preference.getRoleSession().asLiveData()
+    override fun insertUsers(user: UserEntity) {
+        executorService.execute { dataSource.insertUsers(user) }
+    }
+
+    override fun checkDataByEmail(email: String): LiveData<UserEntity> =
+        dataSource.checkDataByEmail(email)
 }

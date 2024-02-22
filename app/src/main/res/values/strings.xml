@@ -11,4 +11,8 @@
     <string name="text_user">Normal User</string>
     <string name="text_footer_register">Already have an account?</string>
     <string name="text_unknown">Unknown</string>
+    <string name="text_empty_data">No data</string>
+    <string name="text_wrong_password">Wrong password</string>
+    <string name="text_email_error">Email not valid</string>
+    <string name="text_password_error">Password is less than 6 character</string>
 </resources>

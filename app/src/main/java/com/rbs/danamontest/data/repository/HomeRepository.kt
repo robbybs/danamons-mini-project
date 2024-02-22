@@ -5,26 +5,25 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.rbs.danamontest.data.network.ApiService
-import com.rbs.danamontest.data.model.User
-import com.rbs.danamontest.data.database.UserDao
-import com.rbs.danamontest.data.database.UserRoomDatabase
-import com.rbs.danamontest.data.model.PhotoItem
-import com.rbs.danamontest.utils.PhotoPagingSource
+import com.rbs.danamontest.domain.repository.IHomeRepository
+import com.rbs.danamontest.data.local.LocalDataSource
+import com.rbs.danamontest.data.remote.network.ApiService
+import com.rbs.danamontest.data.local.entity.UserEntity
+import com.rbs.danamontest.data.remote.response.PhotoResponse
+import com.rbs.danamontest.data.remote.network.PhotoPagingSource
 import com.rbs.danamontest.utils.UserPreference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class HomeRepository(
     private val apiService: ApiService,
-    private val database: UserRoomDatabase,
+    private val dataSource: LocalDataSource,
     private val preference: UserPreference
-) {
+) : IHomeRepository {
 
-    private val userDao: UserDao = database.UserDao()
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
-    fun getData(): LiveData<PagingData<PhotoItem>> {
+    override fun getData(): LiveData<PagingData<PhotoResponse>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
@@ -36,13 +35,13 @@ class HomeRepository(
         ).liveData
     }
 
-    fun getAllDataFromDatabase(): LiveData<List<User>> = database.UserDao().getAllData()
+    override fun getAllUser(): LiveData<List<UserEntity>> = dataSource.getAllData()
 
-    fun delete(id: Int) {
-        executorService.execute { userDao.delete(id) }
+    override fun delete(id: Int) {
+        executorService.execute { dataSource.delete(id) }
     }
 
-    suspend fun saveUserSession(isUserLogin: Boolean) {
+    override suspend fun saveUserSession(isUserLogin: Boolean) {
         preference.saveSession(isUserLogin)
     }
 }
