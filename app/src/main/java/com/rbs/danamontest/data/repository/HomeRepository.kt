@@ -1,6 +1,7 @@
 package com.rbs.danamontest.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -44,4 +45,10 @@ class HomeRepository(
     override suspend fun saveUserSession(isUserLogin: Boolean) {
         preference.saveSession(isUserLogin)
     }
+
+    override fun getPassword(): LiveData<String> = preference.getPassword().asLiveData()
+    override fun updateData(id: Int, username: String) {
+        executorService.execute { dataSource.update(id, username) }
+    }
+
 }

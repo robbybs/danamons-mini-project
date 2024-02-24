@@ -13,6 +13,13 @@
     <string name="text_unknown">Unknown</string>
     <string name="text_empty_data">No data</string>
     <string name="text_wrong_password">Wrong password</string>
+    <string name="text_username_error">Username is less than 6 character</string>
     <string name="text_email_error">Email not valid</string>
     <string name="text_password_error">Password is less than 6 character</string>
+    <string name="text_login_success">Login Success</string>
+    <string name="text_register_success">Register Success</string>
+    <string name="text_update">Update</string>
+    <string name="text_delete">Delete</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_confirmation">Are you sure?</string>
 </resources>

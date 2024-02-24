@@ -20,6 +20,10 @@ class UserInteractor(private val repository: UserRepository) : UserUseCase {
         repository.saveRole(role)
     }
 
+    override suspend fun savePassword(password: String) {
+        repository.savePassword(password)
+    }
+
     override fun getUserSession(): LiveData<Boolean> = repository.getUserSession()
 
     override fun getRole(): LiveData<String> = repository.getRole()

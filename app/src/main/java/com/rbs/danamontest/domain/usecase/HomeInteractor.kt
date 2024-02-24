@@ -18,4 +18,9 @@ class HomeInteractor(private val repository: HomeRepository) : HomeUseCase {
     override suspend fun saveUserSession(isUserLogin: Boolean) {
         repository.saveUserSession(isUserLogin)
     }
+
+    override fun getPassword(): LiveData<String> = repository.getPassword()
+    override fun updateData(id: Int, username: String) {
+        repository.updateData(id, username)
+    }
 }

@@ -10,6 +10,13 @@ import com.rbs.danamontest.databinding.ItemUserBinding
 
 class UserAdapter : ListAdapter<UserEntity, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
+    private var onItemClickCallback: OnItemClickCallback? = null
+
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
             ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,12 +32,29 @@ class UserAdapter : ListAdapter<UserEntity, UserAdapter.MyViewHolder>(DIFF_CALLB
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: UserEntity) {
             with(binding) {
-                tvUsername.text = data.username
+                val userId = data.id
+                val username = data.username
+
+                tvUsername.text = username
                 tvEmail.text = data.email
                 tvRole.text = data.role
-                tvIds.text = data.id.toString()
+                tvIds.text = userId.toString()
+
+                buttonDelete.setOnClickListener {
+                    if (username != null) onItemClickCallback?.onUpdateItem(userId)
+                }
+
+                buttonUpdate.setOnClickListener {
+                    onItemClickCallback?.onDeleteItem(userId)
+                }
             }
         }
+    }
+
+    interface OnItemClickCallback {
+        fun onUpdateItem(id: Int)
+
+        fun onDeleteItem(id: Int)
     }
 
     companion object {

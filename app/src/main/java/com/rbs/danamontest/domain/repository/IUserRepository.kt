@@ -12,6 +12,8 @@ interface IUserRepository {
 
     suspend fun saveRole(role: String)
 
+    suspend fun savePassword(password: String)
+
     fun getUserSession(): LiveData<Boolean>
 
     fun getRole(): LiveData<String>

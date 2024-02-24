@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.rbs.danamontest.data.local.entity.UserEntity
 
 @Dao
@@ -13,8 +12,8 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(note: UserEntity)
 
-    @Update
-    fun update(user: UserEntity)
+    @Query("UPDATE userentity SET username = :username WHERE id = :id")
+    fun update(id: Int, username: String)
 
     @Query("DELETE FROM userentity WHERE id = :id")
     fun delete(id: Int)

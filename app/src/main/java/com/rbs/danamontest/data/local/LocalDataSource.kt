@@ -16,4 +16,8 @@ class LocalDataSource(private val userDao: UserDao) {
     }
 
     fun checkDataByEmail(email: String): LiveData<UserEntity> = userDao.checkUser(email)
+
+    fun update(id: Int, username: String) {
+        userDao.update(id, username)
+    }
 }

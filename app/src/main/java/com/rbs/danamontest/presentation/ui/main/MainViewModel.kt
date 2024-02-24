@@ -4,26 +4,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rbs.danamontest.data.local.entity.UserEntity
-import com.rbs.danamontest.data.repository.UserRepository
+import com.rbs.danamontest.domain.usecase.UserUseCase
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: UserRepository) : ViewModel() {
+class MainViewModel(private val userUseCase: UserUseCase) : ViewModel() {
 
-    fun checkData(email: String): LiveData<UserEntity> = repository.checkDataByEmail(email)
+    fun checkData(email: String): LiveData<UserEntity> = userUseCase.checkDataByEmail(email)
 
     fun saveSession(userLogin: Boolean) {
         viewModelScope.launch {
-            repository.saveUserSession(userLogin)
+            userUseCase.saveUserSession(userLogin)
         }
     }
 
     fun saveRole(role: String) {
         viewModelScope.launch {
-            repository.saveRole(role)
+            userUseCase.saveRole(role)
         }
     }
 
-    fun getUserSession(): LiveData<Boolean> = repository.getUserSession()
+    fun savePassword(password: String) {
+        viewModelScope.launch {
+            userUseCase.savePassword(password)
+        }
+    }
 
-    fun getRole(): LiveData<String> = repository.getRole()
+    val getSession = userUseCase.getUserSession()
+    val getUserRole = userUseCase.getRole()
 }

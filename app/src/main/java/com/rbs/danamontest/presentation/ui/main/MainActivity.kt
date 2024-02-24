@@ -2,8 +2,11 @@ package com.rbs.danamontest.presentation.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -43,18 +46,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupData() {
         with(viewmodel) {
-            getUserSession().observe(this@MainActivity) {
+            getSession.observe(this@MainActivity) {
                 if (it == true) {
-                    getRole().observe(this@MainActivity) { role ->
+                    getUserRole.observe(this@MainActivity) { role ->
                         goToHome(role)
                     }
                 } else {
+                    showLayout()
                     setDataStream()
                     doLogin()
                     goToSignup()
                 }
             }
         }
+    }
+
+    private fun showLayout() {
+        binding.container.visibility = View.VISIBLE
     }
 
     private fun goToHome(role: String) {
@@ -111,39 +119,32 @@ class MainActivity : AppCompatActivity() {
         }
 
         invalidFieldsStream.subscribe { isValid ->
-            if (isValid) {
-                with(binding.buttonLogin) {
-                    isEnabled = true
-                    setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            android.R.color.black
-                        )
-                    )
-                    setTextColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            android.R.color.white
-                        )
-                    )
-                }
-            } else {
-                with(binding.buttonLogin) {
-                    isEnabled = false
-                    setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            android.R.color.darker_gray
-                        )
-                    )
-                    setTextColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            android.R.color.black
-                        )
-                    )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (isValid) {
+                    val state = true
+                    val backgroundColor = getColorStateList(android.R.color.system_accent3_800)
+                    val textColor = android.R.color.white
+                    setButton(state, backgroundColor, textColor)
+                } else {
+                    val state = false
+                    val backgroundColor = getColorStateList(android.R.color.system_neutral1_100)
+                    val textColor = android.R.color.black
+                    setButton(state, backgroundColor, textColor)
                 }
             }
+        }
+    }
+
+    private fun setButton(state: Boolean, backgroundColor: ColorStateList, textColor: Int) {
+        with(binding.buttonLogin) {
+            isEnabled = state
+            backgroundTintList = backgroundColor
+            setTextColor(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    textColor
+                )
+            )
         }
     }
 
@@ -158,8 +159,13 @@ class MainActivity : AppCompatActivity() {
                         if (it != null) {
                             if (email == it.email && password == it.password) {
                                 val role = it.role
-                                saveSession(true)
+                                val userPassword = it.password
+
+                                if (userPassword != null) savePassword(userPassword)
                                 if (role != null) saveRole(role)
+
+                                saveSession(true)
+                                setToastMessage(getString(R.string.text_login_success))
 
                                 startActivity(
                                     Intent(
@@ -168,25 +174,24 @@ class MainActivity : AppCompatActivity() {
                                     ).putExtra(HomeActivity.ROLE, role)
                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 )
-                                finish()
                             } else {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    getString(R.string.text_wrong_password),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                setToastMessage(getString(R.string.text_wrong_password))
                             }
                         } else {
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.text_empty_data),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            setToastMessage(getString(R.string.text_empty_data))
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun setToastMessage(message: String) {
+        Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun goToSignup() {

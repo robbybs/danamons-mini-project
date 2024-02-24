@@ -12,6 +12,7 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
 
     private val userKey = booleanPreferencesKey("user_login")
     private val roleKey = stringPreferencesKey("role")
+    private val passwordKey = stringPreferencesKey("password")
 
     fun getUserSession(): Flow<Boolean> = dataStore.data.map {
         it[userKey] ?: false
@@ -19,6 +20,10 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
 
     fun getRoleSession(): Flow<String> = dataStore.data.map {
         it[roleKey] ?: ""
+    }
+
+    fun getPassword(): Flow<String> = dataStore.data.map {
+        it[passwordKey] ?: ""
     }
 
     suspend fun saveSession(isUserLogin: Boolean) {
@@ -30,6 +35,12 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
     suspend fun saveRole(role: String) {
         dataStore.edit {
             it[roleKey] = role
+        }
+    }
+
+    suspend fun savePassword(password: String) {
+        dataStore.edit {
+            it[passwordKey] = password
         }
     }
 }

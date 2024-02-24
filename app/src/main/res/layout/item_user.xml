@@ -64,6 +64,36 @@
                 app:layout_constraintTop_toBottomOf="@id/tvRole"
                 tools:text="@tools:sample/last_names" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvIds">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/material_dynamic_tertiary20"
+                    android:layout_weight="1"
+                    android:text="@string/text_update" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/material_dynamic_tertiary80"
+                    android:layout_weight="1"
+                    android:text="@string/text_delete" />
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

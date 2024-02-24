@@ -13,4 +13,8 @@ interface IHomeRepository {
     fun delete(id: Int)
 
     suspend fun saveUserSession(isUserLogin: Boolean)
+
+    fun getPassword(): LiveData<String>
+
+    fun updateData(id: Int, username: String)
 }

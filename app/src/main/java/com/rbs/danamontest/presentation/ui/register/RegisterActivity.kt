@@ -2,13 +2,17 @@ package com.rbs.danamontest.presentation.ui.register
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.rbs.danamontest.R
 import com.rbs.danamontest.utils.GlobalSingleton
 import com.rbs.danamontest.utils.GlobalSingletonListener
 import com.rbs.danamontest.data.local.entity.UserEntity
@@ -52,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
                     username.length < 6
                 }
             usernameStream.subscribe {
-                showUsernameAlert(it)
+                showAlert(it, inputUsername)
             }
 
             val emailStream = RxTextView.textChanges(inputEmail)
@@ -61,7 +65,7 @@ class RegisterActivity : AppCompatActivity() {
                     !Patterns.EMAIL_ADDRESS.matcher(email).matches()
                 }
             emailStream.subscribe {
-                showEmailAlert(it)
+                showAlert(it, inputEmail)
             }
 
             val passwordStream = RxTextView.textChanges(inputPassword)
@@ -70,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                     password.length < 6
                 }
             passwordStream.subscribe {
-                showPassword(it)
+                showAlert(it, inputPassword)
             }
 
             val roleStream = RxRadioGroup.checkedChanges(groupRole)
@@ -83,19 +87,19 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun showUsernameAlert(isNotValid: Boolean) {
-        binding.inputUsername.error =
-            if (isNotValid) "Username is less than 6 character" else null
-    }
+    private fun showAlert(isNotValid: Boolean, inputField: AppCompatEditText) {
+        with(binding) {
+            when (inputField) {
+                inputUsername -> inputUsername.error =
+                    if (isNotValid) getString(R.string.text_username_error) else null
 
-    private fun showEmailAlert(isNotValid: Boolean) {
-        binding.inputEmail.error =
-            if (isNotValid) "Email not valid" else null
-    }
+                inputEmail -> inputEmail.error =
+                    if (isNotValid) getString(R.string.text_email_error) else null
 
-    private fun showPassword(isNotValid: Boolean) {
-        binding.inputPassword.error =
-            if (isNotValid) "Password is less than 6 character" else null
+                else -> inputPassword.error =
+                    if (isNotValid) getString(R.string.text_password_error) else null
+            }
+        }
     }
 
     private fun validateStream(
@@ -114,39 +118,32 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         invalidFieldsStream.subscribe { isValid ->
-            if (isValid) {
-                with(binding.buttonSignup) {
-                    isEnabled = true
-                    setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@RegisterActivity,
-                            android.R.color.black
-                        )
-                    )
-                    setTextColor(
-                        ContextCompat.getColor(
-                            this@RegisterActivity,
-                            android.R.color.white
-                        )
-                    )
-                }
-            } else {
-                with(binding.buttonSignup) {
-                    isEnabled = false
-                    setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@RegisterActivity,
-                            android.R.color.darker_gray
-                        )
-                    )
-                    setTextColor(
-                        ContextCompat.getColor(
-                            this@RegisterActivity,
-                            android.R.color.black
-                        )
-                    )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (isValid) {
+                    val state = true
+                    val backgroundColor = getColorStateList(android.R.color.system_accent3_800)
+                    val textColor = android.R.color.white
+                    setButton(state, backgroundColor, textColor)
+                } else {
+                    val state = false
+                    val backgroundColor = getColorStateList(android.R.color.system_neutral1_100)
+                    val textColor = android.R.color.black
+                    setButton(state, backgroundColor, textColor)
                 }
             }
+        }
+    }
+
+    private fun setButton(state: Boolean, backgroundColor: ColorStateList, textColor: Int) {
+        with(binding.buttonSignup) {
+            isEnabled = state
+            backgroundTintList = backgroundColor
+            setTextColor(
+                ContextCompat.getColor(
+                    this@RegisterActivity,
+                    textColor
+                )
+            )
         }
     }
 
@@ -169,12 +166,20 @@ class RegisterActivity : AppCompatActivity() {
                         role = roleValue
                     )
                 viewmodel.insert(insertToDatabase)
+                setToastMessage(getString(R.string.text_register_success))
 
-                Toast.makeText(this@RegisterActivity, "Register success", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
                 finishAffinity()
             }
         }
+    }
+
+    private fun setToastMessage(message: String) {
+        Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun goToLogin() {

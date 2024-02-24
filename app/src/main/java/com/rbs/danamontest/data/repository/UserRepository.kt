@@ -24,9 +24,14 @@ class UserRepository(
         preference.saveRole(role)
     }
 
+    override suspend fun savePassword(password: String) {
+        preference.savePassword(password)
+    }
+
     override fun getUserSession(): LiveData<Boolean> = preference.getUserSession().asLiveData()
 
     override fun getRole(): LiveData<String> = preference.getRoleSession().asLiveData()
+
     override fun insertUsers(user: UserEntity) {
         executorService.execute { dataSource.insertUsers(user) }
     }
