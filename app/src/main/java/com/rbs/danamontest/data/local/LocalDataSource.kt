@@ -15,7 +15,7 @@ class LocalDataSource(private val userDao: UserDao) {
         userDao.delete(id)
     }
 
-    fun checkDataByEmail(email: String): LiveData<UserEntity> = userDao.checkUser(email)
+    fun checkUserAvailability(email: String, password: String): LiveData<UserEntity> = userDao.checkUserAvailability(email, password)
 
     fun update(id: Int, username: String) {
         userDao.update(id, username)

@@ -122,12 +122,12 @@ class RegisterActivity : AppCompatActivity() {
                 if (isValid) {
                     val state = true
                     val backgroundColor = getColorStateList(R.color.alt_dark)
-                    val textColor = getColor(R.color.alt_light)
+                    val textColor = R.color.alt_light
                     setButton(state, backgroundColor, textColor)
                 } else {
                     val state = false
                     val backgroundColor = getColorStateList(R.color.alt_light)
-                    val textColor = getColor(R.color.alt_dark)
+                    val textColor = R.color.alt_dark
                     setButton(state, backgroundColor, textColor)
                 }
             }

@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                 val password = inputPassword.text.toString()
 
                 with(viewmodel) {
-                    checkData(email).observe(this@MainActivity) {
+                    checkUser(email, password).observe(this@MainActivity) {
                         if (it != null) {
                             if (email == it.email && password == it.password) {
                                 val role = it.role

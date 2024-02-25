@@ -21,6 +21,6 @@ interface UserDao {
     @Query("SELECT * from userentity WHERE role = 'Normal User' ORDER BY id ASC")
     fun getAllData(): LiveData<List<UserEntity>>
 
-    @Query("SELECT * from userentity WHERE email = :email")
-    fun checkUser(email: String): LiveData<UserEntity>
+    @Query("SELECT * from userentity WHERE email = :email AND password = :password")
+    fun checkUserAvailability(email: String, password: String): LiveData<UserEntity>
 }

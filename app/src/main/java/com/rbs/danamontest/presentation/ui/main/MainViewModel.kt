@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val userUseCase: UserUseCase) : ViewModel() {
 
-    fun checkData(email: String): LiveData<UserEntity> = userUseCase.checkDataByEmail(email)
+    fun checkUser(email: String, password: String): LiveData<UserEntity> = userUseCase.checkUserAvailability(email, password)
 
     fun saveSession(userLogin: Boolean) {
         viewModelScope.launch {

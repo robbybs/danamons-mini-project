@@ -6,7 +6,7 @@ import com.rbs.danamontest.data.local.entity.UserEntity
 interface UserUseCase {
     fun insertUsers(user: UserEntity)
 
-    fun checkDataByEmail(email: String): LiveData<UserEntity>
+    fun checkUserAvailability(email: String, password: String): LiveData<UserEntity>
 
     suspend fun saveUserSession(isUserLogin: Boolean)
 

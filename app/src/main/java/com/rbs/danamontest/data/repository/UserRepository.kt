@@ -36,6 +36,6 @@ class UserRepository(
         executorService.execute { dataSource.insertUsers(user) }
     }
 
-    override fun checkDataByEmail(email: String): LiveData<UserEntity> =
-        dataSource.checkDataByEmail(email)
+    override fun checkUserAvailability(email: String, password: String): LiveData<UserEntity> =
+        dataSource.checkUserAvailability(email, password)
 }

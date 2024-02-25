@@ -9,8 +9,8 @@ class UserInteractor(private val repository: UserRepository) : UserUseCase {
         repository.insertUsers(user)
     }
 
-    override fun checkDataByEmail(email: String): LiveData<UserEntity> =
-        repository.checkDataByEmail(email)
+    override fun checkUserAvailability(email: String, password: String): LiveData<UserEntity> =
+        repository.checkUserAvailability(email, password)
 
     override suspend fun saveUserSession(isUserLogin: Boolean) {
         repository.saveUserSession(isUserLogin)
