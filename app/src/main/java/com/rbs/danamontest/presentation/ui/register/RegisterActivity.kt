@@ -150,9 +150,9 @@ class RegisterActivity : AppCompatActivity() {
     private fun doSignup() {
         with(binding) {
             buttonSignup.setOnClickListener {
-                val username = inputUsername.text.toString()
-                val email = inputEmail.text.toString()
-                val password = inputPassword.text.toString()
+                val username = inputUsername.text?.trim().toString()
+                val email = inputEmail.text?.trim().toString()
+                val password = inputPassword.text?.trim().toString()
                 val roleAdmin = admin.text.toString()
                 val roleUser = user.text.toString()
 

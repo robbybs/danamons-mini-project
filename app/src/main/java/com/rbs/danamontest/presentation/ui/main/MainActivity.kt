@@ -151,8 +151,8 @@ class MainActivity : AppCompatActivity() {
     private fun doLogin() {
         with(binding) {
             buttonLogin.setOnClickListener {
-                val email = inputEmail.text.toString()
-                val password = inputPassword.text.toString()
+                val email = inputEmail.text?.trim().toString()
+                val password = inputPassword.text?.trim().toString()
 
                 with(viewmodel) {
                     checkUser(email, password).observe(this@MainActivity) {
