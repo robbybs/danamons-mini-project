@@ -9,3 +9,10 @@ This is Login Sample for Bank Danamon Indonesia Test
 - Endless Scroll with Paging3
 - Clean Architecture
 - Koin
+
+# Feature
+- CRUD user
+- App have 2 mode user (admin and normal)
+- Login feature
+- Register feature
+- Homescreen with list data
