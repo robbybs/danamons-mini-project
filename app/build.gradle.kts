@@ -47,6 +47,7 @@ dependencies {
     val retrofitVersion = "2.9.0"
     val lifecycleVersion = "2.7.0"
     val koinVersion = "3.3.2"
+    val mockitoVersion = "3.12.4"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -76,13 +77,12 @@ dependencies {
 
     implementation("io.insert-koin:koin-core:$koinVersion")
     implementation("io.insert-koin:koin-android:$koinVersion")
-//    implementation("io.insert-koin:koin-android-viewmodel:$koinVersion")
-
-//    implementation("org.koin:koin-core:$koinVersion")
-//    implementation("org.koin:koin-android:$koinVersion")
-//    implementation("org.koin:koin-android-viewmodel:$koinVersion")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    testImplementation("org.mockito:mockito-core:$mockitoVersion")
+    testImplementation("org.mockito:mockito-inline:$mockitoVersion")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
 }

@@ -122,13 +122,13 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 if (isValid) {
                     val state = true
-                    val backgroundColor = getColorStateList(android.R.color.system_accent3_800)
-                    val textColor = android.R.color.white
+                    val backgroundColor = getColorStateList(R.color.alt_dark)
+                    val textColor = R.color.alt_light
                     setButton(state, backgroundColor, textColor)
                 } else {
                     val state = false
-                    val backgroundColor = getColorStateList(android.R.color.system_neutral1_100)
-                    val textColor = android.R.color.black
+                    val backgroundColor = getColorStateList(R.color.alt_light)
+                    val textColor = R.color.alt_dark
                     setButton(state, backgroundColor, textColor)
                 }
             }

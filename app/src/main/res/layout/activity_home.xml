@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/alt_light"
     tools:context=".presentation.ui.home.HomeActivity">
 
     <TextView
@@ -30,7 +31,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_logout"
-        app:backgroundTint="@color/material_dynamic_tertiary80"
+        app:backgroundTint="@color/alt_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />

@@ -13,11 +13,11 @@ import androidx.core.content.ContextCompat
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.rbs.danamontest.R
-import com.rbs.danamontest.utils.GlobalSingleton
-import com.rbs.danamontest.utils.GlobalSingletonListener
 import com.rbs.danamontest.data.local.entity.UserEntity
 import com.rbs.danamontest.databinding.ActivityRegisterBinding
 import com.rbs.danamontest.presentation.ui.main.MainActivity
+import com.rbs.danamontest.utils.GlobalSingleton
+import com.rbs.danamontest.utils.GlobalSingletonListener
 import io.reactivex.Observable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -121,13 +121,13 @@ class RegisterActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 if (isValid) {
                     val state = true
-                    val backgroundColor = getColorStateList(android.R.color.system_accent3_800)
-                    val textColor = android.R.color.white
+                    val backgroundColor = getColorStateList(R.color.alt_dark)
+                    val textColor = getColor(R.color.alt_light)
                     setButton(state, backgroundColor, textColor)
                 } else {
                     val state = false
-                    val backgroundColor = getColorStateList(android.R.color.system_neutral1_100)
-                    val textColor = android.R.color.black
+                    val backgroundColor = getColorStateList(R.color.alt_light)
+                    val textColor = getColor(R.color.alt_dark)
                     setButton(state, backgroundColor, textColor)
                 }
             }

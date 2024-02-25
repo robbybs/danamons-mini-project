@@ -79,18 +79,19 @@
                     android:id="@+id/button_delete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/material_dynamic_tertiary20"
                     android:layout_weight="1"
-                    android:text="@string/text_update" />
+                    android:backgroundTint="@color/alt_dark"
+                    android:text="@string/text_update"
+                    android:textColor="@color/alt_light" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/material_dynamic_tertiary80"
                     android:layout_weight="1"
-                    android:text="@string/text_delete" />
+                    android:backgroundTint="@color/alt_light"
+                    android:text="@string/text_delete"
+                    android:textColor="@color/alt_dark" />
 
             </LinearLayout>
 
