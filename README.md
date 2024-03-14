@@ -1,5 +1,5 @@
-# Danamon Mini Project
-This is Login Sample for Bank Danamon Indonesia Test
+# Simple Role Login
+This is Login Sample Apps
 
 # The Libraries and Tech
 - Model-View-ViewModel (MVVM) Pattern
